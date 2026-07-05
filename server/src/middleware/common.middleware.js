@@ -38,7 +38,7 @@ const notFound= (req, res) => {
  */
 const errorHandler = (err, req, res, next) => {
     console.error(err);
-    return errorResponse(res, err.message || "Internal Server Error", err.status || 500)
+    return errorResponse(res, err.message || "Internal Server Error", err.statusCode || 500, process.env.NODE_ENV === "development" ? { stack: err.stack } : null)
 };
 
 module.exports= {asyncHandler, errorHandler, notFound }

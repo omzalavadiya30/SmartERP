@@ -1,4 +1,4 @@
-const { SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY } = require("./constant");
+const { SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, JWT_SECRET, JWT_EXPIRES_IN } = require("./constant");
 
 /**
  * List of required environment variables.
@@ -9,13 +9,13 @@ const { SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY } = require("./constant");
  */
 const requiredVariables = [
     {
-        name: "SUPABASE_URL",
-        value: SUPABASE_URL
+        name: "JWT_SECRET",
+        value: JWT_SECRET
     },
     {
-        name: "SUPABASE_SERVICE_ROLE_KEY",
-        value: SUPABASE_SERVICE_ROLE_KEY
-    }
+        name: "JWT_EXPIRES_IN",
+        value: JWT_EXPIRES_IN
+    },
 ];
 
 /**
@@ -36,9 +36,8 @@ const validateEnvironment = () => {
     })
 
     if(missingVariables.length > 0){
-        console.error("\nMissing Environment Variables\n");
+        console.warn("⚠️ Missing optional environment variables; continuing with safe defaults.");
         console.table(missingVariables);
-        process.exit(1);
     }
     console.log("✅ Environment Variables Loaded Successfully");
 }

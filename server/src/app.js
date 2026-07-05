@@ -5,6 +5,7 @@ const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const routes = require("./routes");
 const { notFound, errorHandler } = require("./middleware/common.middleware.js");
+const { FRONTEND_URL } = require("./config/constant");
 
 // Create an Express application
 const app = express();
@@ -15,7 +16,14 @@ const app = express();
 
 // Enable Cross-Origin Resource Sharing (CORS)
 // Allows the frontend to communicate with the backend.
-app.use(cors());
+app.use(
+    cors({
+        origin: FRONTEND_URL,
+        credentials: true,
+        methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+        allowedHeaders: ["Content-Type", "Authorization"],
+    })
+);
 
 // Adds various HTTP security headers to protect the application
 // from common web vulnerabilities.
