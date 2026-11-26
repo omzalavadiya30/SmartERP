@@ -3,15 +3,6 @@ const authService = require("./auth.service");
 const { successResponse } = require("../../utils/response");
 const { AppError } = require("../../utils/errors");
 
-const setAuthCookie = (res, token) => {
-    res.cookie("token", token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
-        maxAge: 1000 * 60 * 60 * 24 * 7,
-    });
-};
-
 const clearAuthCookie = (res) => {
     res.clearCookie("token");
 };
@@ -24,7 +15,7 @@ const clearAuthCookie = (res) => {
 
 const register = asyncHandler(async (req, res) => {
     const result = await authService.registerUser(req.body);
-    setAuthCookie(res, result.token);
+    if (req.cookies.token) clearAuthCookie(res);
     return successResponse(res, "User registered successfully.", result, 201);
 });
 
@@ -36,7 +27,7 @@ const register = asyncHandler(async (req, res) => {
 
 const login = asyncHandler(async (req, res) => {
     const result = await authService.loginUser(req.body);
-    setAuthCookie(res, result.token);
+    if (req.cookies.token) clearAuthCookie(res);
     return successResponse(res, "Login successful.", result);
 });
 
@@ -87,6 +78,7 @@ const resetPassword = asyncHandler(async (req, res) => {
 */
 
 const logout = asyncHandler(async (req, res) => {
+    if(req.session.jti) await require("./auth.repository").revokeSession(req.session.jti, req.session.exp);
     clearAuthCookie(res);
     return successResponse(res, "Logout successful.");
 });

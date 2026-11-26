@@ -30,3 +30,5 @@ coverage/
 
 # Misc
 *.tmp
+# Local embedded PostgreSQL cluster
+.smarterp-data/

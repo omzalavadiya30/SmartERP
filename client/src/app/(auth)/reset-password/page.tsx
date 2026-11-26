@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -18,6 +18,10 @@ import { resetPasswordSchema, type ResetPasswordFormData } from "@/schemas/auth.
 import authService from "@/services/auth.service";
 
 export default function ResetPasswordPage() {
+    return <Suspense fallback={<p>Loading reset form…</p>}><ResetForm /></Suspense>;
+}
+
+function ResetForm() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const token = searchParams.get("token") || "";

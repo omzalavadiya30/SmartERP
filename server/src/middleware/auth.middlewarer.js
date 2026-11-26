@@ -33,7 +33,7 @@ const authenticate = async (req, res, next) => {
         }
 
         const decoded = verifyToken(token);
-        const user = await findUserById(decoded.id);
+        const user = await findUserById(decoded.id,decoded.jti,decoded.version ?? 0);
 
         if (!user) {
             throw new AppError("User not found.", 401);
@@ -42,10 +42,11 @@ const authenticate = async (req, res, next) => {
         // Never expose password
         delete user.password;
         req.user = user;
+        req.session = decoded;
 
         next();
     } catch (error) {
-        next(error);
+        next(["TokenExpiredError","JsonWebTokenError"].includes(error.name)?new AppError("Please sign in again.",401):error);
     }
 };
 

@@ -45,6 +45,6 @@ router.post("/reset-password", validate(resetPasswordSchema), resetPassword);
 |--------------------------------------------------------------------------
 */
 
-router.post("/logout", logout);
+router.post("/logout", authenticate, logout);
 
 module.exports = router;
