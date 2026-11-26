@@ -8,7 +8,7 @@
 
 import api from "@/lib/axios";
 
-import { LoginPayload, RegisterPayload, ForgotPasswordPayload, ResetPasswordPayload, LoginResponse, AuthResponse } from "@/types/auth";
+import { LoginPayload, RegisterPayload, ForgotPasswordPayload, ResetPasswordPayload, LoginResponse } from "@/types/auth";
 
 /**
  * Register

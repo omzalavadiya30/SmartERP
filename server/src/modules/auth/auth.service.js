@@ -14,7 +14,7 @@ const { sendPasswordResetEmail } = require("../../services/email.service");
 const registerUser = async (userData) => {
     const existingUser = await authRepository.findUserByEmail(userData.email);
     if (existingUser) {
-        throw new AppError("Email is already registered.");
+        throw new AppError("Email is already registered.", 409);
     }
 
     const hashedPassword = await hashPassword(userData.password);
@@ -26,8 +26,10 @@ const registerUser = async (userData) => {
         password_reset_expires_at: null,
     });
 
-    const token = generateToken({ id: user.id, email: user.email });
+    const token = generateToken({ id: user.id, version:user.token_version, jti:crypto.randomUUID() });
     delete user.password;
+    delete user.password_reset_token;
+    delete user.password_reset_expires_at;
     return { user, token };
 };
 
@@ -40,17 +42,19 @@ const registerUser = async (userData) => {
 const loginUser = async ({ email, password }) => {
     const user = await authRepository.findUserByEmail(email);
     if (!user) {
-        throw new AppError("Invalid email or password.");
+        throw new AppError("Invalid email or password.", 401);
     }
 
     const isPasswordMatched = await comparePassword(password, user.password);
 
     if (!isPasswordMatched) {
-        throw new AppError("Invalid email or password.");
+        throw new AppError("Invalid email or password.", 401);
     }
 
-    const token = generateToken({ id: user.id, email: user.email });
+    const token = generateToken({ id: user.id, version:user.token_version, jti:crypto.randomUUID() });
     delete user.password;
+    delete user.password_reset_token;
+    delete user.password_reset_expires_at;
     return { user, token };
 };
 
@@ -64,8 +68,7 @@ const forgotPassword = async ({ email }) => {
     const user = await authRepository.findUserByEmail(email);
     if (!user) {
         return {
-            message: "If an account exists for this email, a reset token has been generated.",
-            resetToken: null,
+            message: "If an account exists for this email, password reset instructions have been requested.",
         };
     }
 
@@ -73,7 +76,7 @@ const forgotPassword = async ({ email }) => {
     const expiresAt = new Date(Date.now() + 15 * 60 * 1000).toISOString();
 
     await authRepository.updateUser(user.id, {
-        password_reset_token: resetToken,
+        password_reset_token: crypto.createHash("sha256").update(resetToken).digest("hex"),
         password_reset_expires_at: expiresAt,
     });
 
@@ -88,9 +91,7 @@ const forgotPassword = async ({ email }) => {
     }
 
     return {
-        message: "Password reset instructions have been generated.",
-        resetToken,
-        expiresAt,
+        message: "If an account exists for this email, password reset instructions have been requested.",
     };
 };
 
@@ -101,22 +102,19 @@ const forgotPassword = async ({ email }) => {
 */
 
 const resetPassword = async ({ token, password }) => {
-    const user = await authRepository.findUserByResetToken(token);
+    const user = await authRepository.findUserByResetToken(crypto.createHash("sha256").update(token).digest("hex"));
     if (!user || !user.password_reset_token || !user.password_reset_expires_at) {
-        throw new AppError("Invalid or expired reset token.");
+        throw new AppError("Invalid or expired reset token.", 400);
     }
 
     const expiresAt = new Date(user.password_reset_expires_at);
     if (expiresAt < new Date()) {
-        throw new AppError("Reset token has expired.");
+        throw new AppError("Reset token has expired.", 400);
     }
 
     const hashedPassword = await hashPassword(password);
-    await authRepository.updateUser(user.id, {
-        password: hashedPassword,
-        password_reset_token: null,
-        password_reset_expires_at: null,
-    });
+    const changed=await authRepository.resetCredential(user.password_reset_token,hashedPassword);
+    if(!changed) throw new AppError("Invalid or expired reset token.",400);
 
     return {
         message: "Password reset successful. You can sign in with your new password.",

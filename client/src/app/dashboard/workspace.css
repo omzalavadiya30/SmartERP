@@ -1,0 +1,552 @@
+.erp {
+  --pine: #175844;
+  --line: #dce3df;
+  --ink: #192b24;
+  min-height: 100vh;
+  background: #f5f7f3;
+  color: var(--ink);
+  font-family: Arial, Helvetica, sans-serif;
+  display: grid;
+  grid-template-columns: 226px minmax(0, 1fr);
+  font-size: 14px;
+}
+.erp button {
+  cursor: pointer;
+}
+.erp button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+.erp :focus-visible {
+  outline: 3px solid #e3a338;
+  outline-offset: 3px;
+}
+.erp-side {
+  background: #112d25;
+  color: #e3eee7;
+  position: sticky;
+  top: 0;
+  height: 100dvh;
+  padding: 26px 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  overflow-y: auto;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 23px;
+  font-weight: 700;
+  letter-spacing: -1.2px;
+  padding: 0 9px;
+}
+.brand-symbol {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  background: #c7e99a;
+  color: #173628;
+  border-radius: 9px;
+}
+.company-switch,
+.profile,
+.profile button,
+.erp-side nav button,
+.topbar,
+.search-button,
+.erp-btn,
+.section-head,
+.filter-bar,
+.row-actions,
+.page-heading,
+.table-tools,
+.table-tools label,
+.invoice-head,
+.form-footer,
+.document-actions,
+.metrics button span,
+.quick-actions button,
+.action-grid button,
+.company-card,
+.back-link {
+  display: flex;
+  align-items: center;
+}
+.company-switch {
+  gap: 9px;
+  border: 1px solid #476255;
+  border-radius: 7px;
+  padding: 11px 9px;
+  min-width: 0;
+  background: #1b382d;
+}
+.company-switch span {
+  flex: 1;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.erp-side nav {
+  display: grid;
+  gap: 3px;
+}
+.erp-side nav button {
+  padding: 8px 12px;
+  gap: 11px;
+  text-align: left;
+  border-radius: 6px;
+  color: #d1dfd6;
+  font-size: 13px;
+}
+.erp-side nav button:hover,
+.erp-side nav button.on {
+  background: #345344;
+  color: #efffdc;
+}
+.erp-side nav button.on {
+  box-shadow: inset 3px 0 #c7e99a;
+}
+.profile {
+  margin-top: auto;
+  padding: 15px 5px 0;
+  gap: 10px;
+  border-top: 1px solid #3c5147;
+}
+.profile > span {
+  border-radius: 50%;
+  background: #cfdfb4;
+  color: #223d2b;
+  padding: 7px 11px;
+  font-weight: bold;
+}
+.profile small,
+.quick-actions small {
+  display: block;
+  color: #65796b;
+  font-size: 12px;
+}
+.profile small {
+  color: #becfc1;
+  text-transform: capitalize;
+}
+.profile button {
+  margin-left: auto;
+}
+.erp-main {
+  min-width: 0;
+}
+.topbar {
+  height: 61px;
+  background: white;
+  border-bottom: 1px solid var(--line);
+  padding: 0 clamp(18px, 4vw, 58px);
+  gap: 9px;
+  font-size: 12px;
+  color: #65766d;
+}
+.topbar b {
+  color: #294236;
+}
+.search-button {
+  margin-left: auto;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 6px 10px;
+  gap: 8px;
+}
+.erp kbd {
+  border: 1px solid #d4ddd6;
+  border-radius: 4px;
+  background: #f6f9f5;
+  color: #58705e;
+  font: 11px monospace;
+  padding: 2px 5px;
+}
+.erp-content {
+  padding: 32px clamp(18px, 4vw, 58px) 50px;
+  max-width: 1500px;
+  margin: auto;
+}
+.page-heading,
+.section-head,
+.table-tools,
+.invoice-head {
+  justify-content: space-between;
+  gap: 12px;
+}
+.page-heading {
+  margin-bottom: 27px;
+}
+.context-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: #52725d;
+  margin-bottom: 5px;
+}
+.erp h1 {
+  font-family: Georgia, serif;
+  letter-spacing: -1.6px;
+  font-size: clamp(28px, 3.5vw, 44px);
+  line-height: 1.1;
+}
+.erp h2 {
+  font-size: 19px;
+  letter-spacing: -0.5px;
+  font-weight: 650;
+  margin: 12px 0;
+}
+.erp h3 {
+  font-size: 16px;
+  font-weight: 650;
+}
+.erp-btn {
+  gap: 7px;
+  font-size: 13px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: white;
+  color: var(--ink);
+  padding: 7px 12px;
+  min-height: 34px;
+}
+.erp-btn.primary {
+  background: var(--pine);
+  color: white;
+  border-color: var(--pine);
+}
+.erp-btn:hover,
+.action-grid button:hover,
+.company-card:hover {
+  border-color: #83a088;
+}
+.metrics,
+.quick-actions,
+.action-grid,
+.company-list {
+  display: grid;
+  gap: 12px;
+}
+.metrics {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.metrics button,
+.panel,
+.invoice,
+.company-card,
+.etable,
+.quick-actions button,
+.action-grid button {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+.metrics button {
+  text-align: left;
+  padding: 17px;
+}
+.metrics button span {
+  gap: 8px;
+  color: #576d60;
+  font-size: 12px;
+}
+.metrics button strong {
+  font-size: clamp(17px, 2vw, 29px);
+  display: block;
+  letter-spacing: -1px;
+  margin-top: 8px;
+  font-variant-numeric: tabular-nums;
+}
+.quick-actions {
+  grid-template-columns: 1fr 1fr;
+  margin: 16px 0 25px;
+}
+.quick-actions button {
+  gap: 13px;
+  text-align: left;
+  padding: 17px 20px;
+  background: #e6efdf;
+}
+.quick-actions button:nth-child(2) {
+  background: #f1ecdf;
+}
+.quick-actions kbd {
+  margin-left: auto;
+}
+.section-head {
+  margin: 14px 0 9px;
+}
+.section-head > button:not(.erp-btn),
+.row-actions button,
+.etable td button,
+.back-link,
+.problem button {
+  font-weight: 600;
+  color: var(--pine);
+  font-size: 12px;
+}
+.row-actions {
+  gap: 12px;
+}
+.table-tools {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--line);
+  min-height: 45px;
+}
+.table-tools label {
+  gap: 7px;
+  color: #698174;
+}
+.table-tools input {
+  border: 0;
+  outline-offset: 2px;
+  width: min(190px, 50vw);
+  font-size: 13px;
+}
+.scroll-table {
+  overflow: auto;
+}
+.erp table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 13px;
+}
+.erp th,
+.erp td {
+  padding: 11px 14px;
+  border-bottom: 1px solid #e9eee9;
+  white-space: nowrap;
+}
+.erp th {
+  background: #f7f9f6;
+  text-transform: capitalize;
+  font-weight: 600;
+  color: #607166;
+  font-size: 12px;
+}
+.empty {
+  padding: 30px 18px;
+  color: #5c6b61;
+}
+.action-grid {
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  margin: 12px 0 24px;
+}
+.action-grid button {
+  padding: 13px;
+  justify-content: space-between;
+  gap: 8px;
+  text-align: left;
+}
+.panel,
+.invoice {
+  padding: clamp(16px, 3vw, 32px);
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.efield {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  min-width: 0;
+}
+.efield > label {
+  font-weight: 600;
+  color: #425b4b;
+}
+.efield input,
+.efield select {
+  width: 100%;
+  background: white;
+  border: 1px solid #bccbbf;
+  border-radius: 5px;
+  padding: 8px 9px;
+  color: #20382b;
+  min-height: 38px;
+}
+.form-footer,
+.line-items {
+  grid-column: 1/-1;
+}
+.form-footer,
+.document-actions {
+  justify-content: flex-end;
+  gap: 16px;
+}
+.form-footer {
+  border-top: 1px solid var(--line);
+  padding-top: 15px;
+}
+.line-items {
+  border-block: 1px solid var(--line);
+  padding: 14px 0;
+}
+.line-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr auto;
+  align-items: end;
+  gap: 10px;
+  margin: 10px 0;
+}
+.line-row button {
+  padding: 10px 0;
+}
+.filter-bar {
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 12px;
+  margin: 12px 0 18px;
+}
+.filter-bar .efield {
+  min-width: 170px;
+}
+.company-card {
+  padding: 17px;
+  gap: 14px;
+}
+.company-card > div {
+  flex: 1;
+}
+.company-card p,
+.invoice p {
+  color: #596c5f;
+}
+.back-link {
+  gap: 8px;
+  margin-top: 25px;
+}
+.danger,
+.problem {
+  color: #a3322c;
+}
+.danger {
+  margin-top: 22px;
+}
+.problem {
+  padding: 10px;
+  border: 1px solid #e4aaa6;
+  background: #fff4f1;
+  margin-bottom: 10px;
+}
+.invoice-head {
+  align-items: start;
+  border-bottom: 1px solid var(--line);
+  padding: 16px 0;
+}
+.invoice > p,
+.invoice-total {
+  margin: 14px 0;
+}
+.invoice-total {
+  text-align: right;
+}
+.mobile-menu {
+  display: none;
+}
+@media (max-width: 960px) {
+  .erp {
+    grid-template-columns: 180px minmax(0, 1fr);
+  }
+  .erp-side {
+    padding-inline: 10px;
+  }
+  .metrics {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 700px) {
+  .erp {
+    display: block;
+  }
+  .erp-side {
+    display: none;
+  }
+  .menu-open .erp-side {
+    display: flex;
+    position: fixed;
+    left: 0;
+    top: 55px;
+    height: calc(100dvh - 55px);
+    width: 200px;
+    z-index: 5;
+  }
+  .mobile-menu {
+    display: block;
+  }
+  .topbar {
+    height: 55px;
+  }
+  .erp-content {
+    padding-top: 20px;
+  }
+  .quick-actions,
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  .quick-actions {
+    gap: 7px;
+  }
+  .company-card {
+    flex-wrap: wrap;
+  }
+  .line-row {
+    grid-template-columns: 1fr 1fr auto;
+  }
+  .line-row > .efield:first-child {
+    grid-column: 1/-1;
+  }
+  .page-heading {
+    align-items: flex-end;
+  }
+  .search-button kbd {
+    display: none;
+  }
+}
+@media print {
+  .erp {
+    display: block;
+    background: white;
+  }
+  .erp-side,
+  .topbar,
+  .page-heading,
+  .back-link,
+  .document-actions,
+  .table-tools,
+  .problem {
+    display: none !important;
+  }
+  .erp-content,
+  .invoice {
+    padding: 0;
+    border: 0;
+  }
+  .invoice .scroll-table {
+    overflow: visible;
+  }
+  .invoice table {
+    font-size: 9px;
+  }
+  .invoice th,
+  .invoice td {
+    padding: 4px;
+    white-space: normal;
+  }
+  .invoice .etable {
+    border: 0;
+  }
+  .invoice-head {
+    display: flex;
+  }
+  .erp-main {
+    width: 100%;
+  }
+}

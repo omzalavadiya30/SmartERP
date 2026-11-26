@@ -12,4 +12,5 @@ const authRoutes= require("../modules/auth")
 router.use("/health", healthRoutes);
 router.use("/auth", authRoutes);
 
+router.use("/companies", require("../erp/routes"));
 module.exports = router;
